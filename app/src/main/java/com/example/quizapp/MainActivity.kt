@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
@@ -14,13 +15,14 @@ class MainActivity : AppCompatActivity() {
         val btnStart: Button = findViewById(R.id.btnStart)
         val name: EditText = findViewById(R.id.name)
         btnStart.setOnClickListener {
-            if(name.text.isNotEmpty()){
-                val intent = Intent(this, QuizQuestionsActivity::class.java)  // intent is used to move from one screen to other screen/ from one activity to other activity
-                startActivity(intent) // here we move to other activity
-                finish() // if we press back button we are out of app
+            if(name.text.isEmpty()){
+                Toast.makeText(this, "Please Enter your Name!", Toast.LENGTH_LONG).show()
             }
             else{
-                Toast.makeText(this, "Please enter your name!", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, QuizQuestionsActivity::class.java)
+                intent.putExtra(Constants.USER_NAME, name.text.toString())
+                startActivity(intent)
+                finish()
             }
         }
     }
